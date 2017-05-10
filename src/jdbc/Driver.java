@@ -15,6 +15,7 @@ import java.sql.Statement;
 public class Driver {
 
 	private static Connection theConnection;
+	private boolean connected = true;
 
 	/**
 	 * Constructor gia class Driver.
@@ -25,22 +26,33 @@ public class Driver {
 			theConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/private_sector_schema", "root", ""); // get connection to database
 		} catch (Exception e) {
 			System.err.println("Connection Error");
-			System.exit(-1);
-		}		
+			connected = false;
+		}
 	}
 
 	/**
 	 * Constructor gia class Driver me orismata twra.
 	 */
-	public Driver(String user, String password, String host, int port, String name) {
+	public Driver(String user, char[] password, String host, int port, String name) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver"); // load jdbc driver
 			String url = "jdbc:mysql://" + host + ":" + port + "/" + name;
-			theConnection = DriverManager.getConnection(url, user, password); // get connection to database
+			String pass = "";
+			for (char s: password) {
+				pass += s;
+			}
+			theConnection = DriverManager.getConnection(url, user, pass); // get connection to database
 		} catch (Exception e) {
 			System.err.println("Connection Error");
-			System.exit(-1);
+			connected = false;
 		}		
+	}
+
+	/**
+	 * Auth h methodos epistrefei ama einai se sindesh.
+	 */
+	public boolean getStatus() {
+		return connected;
 	}
 
 	/**
@@ -76,21 +88,17 @@ public class Driver {
 	/**
 	 * Auth h methodos ektelei to query pou periexei to String querry pou to edwse o xrhsths apo to GUI
 	 */
-	public int executeQuerry(String query) {
+	public ResultSet executeQuerry(String query) {
 		Statement st = null;
 		ResultSet rs = null;
 		try {
 			st = theConnection.createStatement();
 			rs = st.executeQuery(query);
-			while (rs.next()) {
-				System.out.print(rs.getString(1) + ": ");
-				System.out.println(rs.getString(2));
-			}
-			return 1; // all good
+			return rs;
 		} catch (Exception e) {
-			return -1; // kati phge lathos sto SQL query
+			return null; // kati phge lathos sto SQL query
 			//e.printStackTrace();
 		}
 	}
-	
+
 }
