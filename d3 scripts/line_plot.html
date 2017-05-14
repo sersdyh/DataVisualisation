@@ -1,0 +1,47 @@
+<!doctype html>
+<meta charset="utf-8">
+
+<script src="//d3plus.org/js/d3.js"></script>
+<script src="//d3plus.org/js/d3plus.js"></script>
+
+<div id="viz"></div>
+
+<script>
+
+	d3.tsv('data.tsv', function(data) {
+		var theMap = []
+		var numberOfRows = data.length
+		columns = Object.keys(data[0]);
+		numberOfColumns = columns.length;
+		for (i = 0; i < numberOfRows; i++) {
+			columns = Object.keys(data[i]);
+			numberOfColumns = columns.length;
+			for (j = columns[0]; j <= columns[numberOfColumns-3]; j++) {
+				var temp = {};
+				temp["Year"] = parseInt(j);
+				temp["CountryName"] = data[i]["CountryName"];
+				temp["Value"] = parseFloat(data[i][j + ""]);
+				theMap.push(temp);
+				temp = null;
+			}
+		}
+
+		//TEST
+		/*for (i = 0; i < theMap.length; i++) {
+			console.log(theMap[i]);
+		}*/
+		//console.log(theMap[0].value); console.log(theMap[1].value);
+		
+		var visualization = d3plus.viz()
+			.container("#viz")
+			.data(theMap)
+			.title(data[0]["SeriesName"])
+			.type("line")
+			.id("CountryName")
+			.text("CountryName")
+			.x("Year")
+			.y("Value")
+			.draw()
+});
+
+</script>
