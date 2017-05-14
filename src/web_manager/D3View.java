@@ -27,12 +27,12 @@ public class D3View extends Application {
 		for (String s: rawArguments) {
 			chartType = s;
 		}
-		System.out.println(chartType);
 		
 		stage.setTitle("D3 View");
-		scene = new Scene(new Browser(), 750, 500, Color.web("#666970"));
+		scene = new Scene(new Browser(chartType), 750, 500, Color.web("#666970"));
 		stage.setScene(scene);
 		stage.show();
+		stage.setAlwaysOnTop(false);
     }
 
 }
@@ -42,11 +42,17 @@ class Browser extends Region {
 	final WebView browser = new WebView();
     final WebEngine webEngine = browser.getEngine();
 
-    public Browser() {
+    public Browser(String chartType) {
         //apply the styles
         getStyleClass().add("browser");
         // load the web page
-        webEngine.load("http://localhost/index.html");
+        if (chartType.equals("Bar chart")) {
+        	webEngine.load("http://localhost/bar_plot.html");
+        } else if (chartType.equals("Scatter Plot")) {
+        	webEngine.load("http://localhost/scatter_plot.html");
+        } else if (chartType.equals("Timeline/Trendline")) {
+        	webEngine.load("http://localhost/line_plot.html");
+        }
         //add the web view to the scene
         getChildren().add(browser);
     }

@@ -35,17 +35,17 @@ public class AboutWindow extends JFrame {
 		
 		JButton btnReleaseHighlights = new JButton("Release highlights");
 		btnReleaseHighlights.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnReleaseHighlights.setBounds(10, 50, 140, 23);
+		btnReleaseHighlights.setBounds(10, 50, 165, 23);
 		contentPane.add(btnReleaseHighlights);
 		
 		JButton btnNewButton = new JButton("FAQ");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton.setBounds(10, 84, 140, 23);
+		btnNewButton.setBounds(10, 84, 165, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnViewLicenseAgreement = new JButton("View license agreement");
 		btnViewLicenseAgreement.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnViewLicenseAgreement.setBounds(10, 118, 140, 23);
+		btnViewLicenseAgreement.setBounds(10, 118, 165, 23);
 		contentPane.add(btnViewLicenseAgreement);
 		
 		JButton btnClose = new JButton("Close");
@@ -55,7 +55,7 @@ public class AboutWindow extends JFrame {
 			}
 		});
 		btnClose.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnClose.setBounds(10, 152, 140, 23);
+		btnClose.setBounds(10, 152, 165, 23);
 		contentPane.add(btnClose);
 		
 		JSeparator separator = new JSeparator();

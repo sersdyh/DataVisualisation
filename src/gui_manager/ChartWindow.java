@@ -8,14 +8,18 @@ import javax.swing.JScrollPane;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 
 import com.mysql.jdbc.ResultSetMetaData;
+
+import file_manager.FileHandler;
+
 import jdbc.Driver;
+
 import web_manager.D3View;
-import FileManager.FileHandler;
 
 import javafx.application.Application;
 
@@ -43,7 +47,6 @@ public class ChartWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public ChartWindow(Driver databaseConnection) {
-		setAlwaysOnTop(true);
 		ResultSet rs = null;
 		countries = new ArrayList<>();
 		indicators = new ArrayList<>();
@@ -319,7 +322,7 @@ public class ChartWindow extends JFrame {
 								yr++;
 							}
 							years = "";
-							for (int i = 1967; i <= 2016; i = i + range) {
+							for (int i = 1967; i <= 2016; i += range) {
 								//System.out.println(item + ":" + yearMap.get(item));
 								if (i >= from && i <= to) {
 									years += yearMap.get(i) + " ";
@@ -332,16 +335,20 @@ public class ChartWindow extends JFrame {
 							allQueries.add(finalQuery);
 							//System.out.println(finalQuery);
 						}
-						// kanw create to .csv arxeio...
+						// kanw create to .tsv arxeio...
 						FileHandler file = new FileHandler(allQueries);
-						file.createCSVFile(from, to);
+						file.createTSVFile(from, to, range);
 						// kalw to d3 javascript analoga me ti tipo chart epelekse o xrhsths
 						setVisible(false);
 						Application.launch(D3View.class, chartType);
-						
+
 						// diagrafw data arxeio gia na bei allo
 						file.deleteDataFile();
+					} else {
+						JOptionPane.showMessageDialog(new JFrame(), "Error: No country/indicators selected.", "Dialog", JOptionPane.ERROR_MESSAGE);
 					}
+				} else {
+					JOptionPane.showMessageDialog(new JFrame(), "Error: Year " + from + " greater than " + to + ".", "Dialog", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});

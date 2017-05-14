@@ -25,6 +25,7 @@ public class Driver {
 			Class.forName("com.mysql.jdbc.Driver"); // load jdbc driver
 			theConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/private_sector_schema", "root", ""); // get connection to database
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.err.println("Connection Error");
 			connected = false;
 		}

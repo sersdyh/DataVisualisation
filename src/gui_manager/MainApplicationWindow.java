@@ -16,10 +16,11 @@ import javax.swing.JMenu;
 
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Color;
+import javax.swing.JLabel;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class MainApplicationWindow {
 
@@ -64,8 +65,10 @@ public class MainApplicationWindow {
 		JEditorPane editorPane = new JEditorPane();
 		editorPane.setForeground(Color.BLACK);
 		editorPane.setBackground(Color.LIGHT_GRAY);
-		editorPane.setBounds(10, 55, 564, 295);
+		editorPane.setBounds(10, 32, 564, 290);
+		editorPane.setEditable(false);
 		mainFrame.getContentPane().add(editorPane);
+		editorPane.setText("Welcome to Data Visualisation using Data Driver Documents.\n\nTo get started, click chart list from charts tab and select data.");
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, 584, 21);
@@ -97,41 +100,19 @@ public class MainApplicationWindow {
 		mntmClose.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnConnection.add(mntmClose);
 		
-		JMenu mnEdit = new JMenu("Edit");
-		mnEdit.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		menuBar.add(mnEdit);
-		
-		JMenuItem mntmRun = new JMenuItem("Run");
-		mntmRun.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//String query = editorPane.getText();
-			}
-		});
-		mntmRun.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mnEdit.add(mntmRun);
-		
-		JMenuItem mntmClear = new JMenuItem("Clear");
-		mntmClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editorPane.setText("");
-			}
-		});
-		mntmClear.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mnEdit.add(mntmClear);
-		
 		JMenu mnCharts = new JMenu("Charts");
 		mnCharts.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		menuBar.add(mnCharts);
 		
-		JMenuItem mntmChartsList = new JMenuItem("Charts list");
-		mntmChartsList.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mntmChartsList.addActionListener(new ActionListener() {
+		JMenuItem mntmChartList = new JMenuItem("Chart list");
+		mntmChartList.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		mntmChartList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ChartWindow newChartWindow = new ChartWindow(databaseConnection);
 				newChartWindow.setVisible(true);
 			}
 		});
-		mnCharts.add(mntmChartsList);
+		mnCharts.add(mntmChartList);
 		
 		JMenu mnHelp = new JMenu("Help");
 		mnHelp.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -147,14 +128,9 @@ public class MainApplicationWindow {
 		mntmAbout.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnHelp.add(mntmAbout);
 		
-		Button executeButton = new Button("execute");
-		executeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//String query = editorPane.getText();
-			}
-		});
-		executeButton.setBounds(10, 27, 70, 22);
-		mainFrame.getContentPane().add(executeButton);
+		JLabel lblFspynick = DefaultComponentFactory.getInstance().createLabel("FSpyNick©");
+		lblFspynick.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 13));
+		lblFspynick.setBounds(493, 333, 81, 14);
+		mainFrame.getContentPane().add(lblFspynick);
 	}
-
 }
